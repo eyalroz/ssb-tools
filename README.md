@@ -6,7 +6,7 @@ This project facilitates work with the Star Schema Benchmark (SSB) on a DBMS (cu
 |:----------------|
 | [What's actually in here?](#whats-in-it)<br>  [About the Star Schema Benchmark](#about-ssb)<br> [Requirements](#requirements)<br> [Getting started](#getting-started)<br>|
 
-## <a name="whats-in-it">What's actually in here??</a>
+## <a name="whats-in-it">What's actually in here?</a>
 
 The repository comprises:
 
@@ -17,7 +17,7 @@ The repository comprises:
 
 This repository is inspired by similar efforts of mine for [TPC-H](https://github.com/eyalroz/tpch-tools) and for the [USDT-Ontime](https://github.com/eyalroz/tpch-tools) data set and sort-of-a benchmark.
 
-Only MonetDB is supported as a DBMS for now, and there are no plans to change this - but you're welcome to ask, to submit a pull request or to open an issue.
+Only MonetDB is supported as a DBMS right now, and I have no immediate plans to add support for another DBMS - but you're welcome to open an issue and ask for one, or better yet - submit a pull request. It's just some bash scripting after all.
 
 ## <a name="about-ssb">About the Star Schema Benchmark</a>
 
