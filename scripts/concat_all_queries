@@ -1,0 +1,12 @@
+#!/bin/bash 
+
+echo "-- All SSB (Star-Schema Benchmark) queries:"
+echo "-------------------------------------------"
+echo
+ 
+ls benchmark_queries/*.sql | while read query_filename; do 
+	base_fn="${query_filename/benchmark_queries\/}"
+	echo "-- Query ${base_fn/.sql}"
+	sed -r 's/--.*$//;' $query_filename | paste -s --delimiters=\  | sed -r 's/\s+/ /g; s/^\s//;'
+	echo -e "\n" 
+done
