@@ -421,10 +421,8 @@ if [[ -z "$already_generated" ]] ; then
 	[[ "$be_verbose" ]] && dbgen_verbosity_option="-v"
 	[[ "$be_verbose" ]] && echo "$dbgen_binary -v -b $dbgen_dists_file -s 1 "
 	# Unfortunately, for now, we need to generate each table separately.
-	for table_code in c s d p l; do
-		echo >&2 $dbgen_binary -b $dbgen_dists_file -s 1 -T $table_code $dbgen_verbosity_option 
-		$dbgen_binary -b $dbgen_dists_file -s 1 -T $table_code $dbgen_verbosity_option || die "Failed generating SSB data using $dbgen_binary with scale factor $scale_factor, at $data_generation_dir"
-	done
+	echo >&2 $dbgen_binary -b $dbgen_dists_file -s 1
+	$dbgen_binary -b $dbgen_dists_file -s 1 $dbgen_verbosity_option || die "Failed generating SSB data using $dbgen_binary with scale factor $scale_factor, at $data_generation_dir"
 	popd >&/dev/null
 else
 	[[ -d $data_generation_dir ]] || die "Pre-generated data directory $data_generation_dir is missing"
