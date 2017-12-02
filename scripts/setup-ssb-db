@@ -269,7 +269,7 @@ CREATE TABLE date_ (
 	d_lastdayinmonthfl INT,     -- 1 bit
 	d_holidayfl        INT,     -- 1 bit
 	d_weekdayfl        INT,     -- 1 bit
-	primary key(d_datekey) 
+	PRIMARY KEY (d_datekey) 
 );
 
 CREATE TABLE supplier (
@@ -280,7 +280,7 @@ CREATE TABLE supplier (
 	s_nation  STRING,  -- varchar(15), --fixed text(15) (25 values, longest united kingdom)
 	s_region  STRING,  -- varchar(12), --fixed text, size 12 (5 values: longest middle east)
 	s_phone   STRING,  -- varchar(15) --fixed text, size 15 (many values, format: 43-617-354-1222)
-	primary key(s_suppkey)
+	PRIMARY KEY (s_suppkey)
 );
 
 CREATE TABLE customer (
@@ -292,7 +292,7 @@ CREATE TABLE customer (
 	c_region     STRING,     -- varchar(12), --fixed text, size 12 (5 values: longest middle east)
 	c_phone      STRING,     -- varchar(15), --fixed text, size 15 (many values, format: 43-617-354-1222)
 	c_mktsegment STRING,     -- varchar(10) --fixed text, size 10 (longest is automobile)
-	primary key (c_custkey)
+	PRIMARY KEY (c_custkey)
 );
 
 CREATE TABLE part (
@@ -305,7 +305,7 @@ CREATE TABLE part (
 	p_type      STRING,     -- varchar(25), --variable text, size 25 (card = 150)
 	p_size      INT,        -- numeric 1-50 (card = 50)
 	p_container STRING,     -- varchar(15) --fixed text(10) (card = 40)
-	primary key (p_partkey)
+	PRIMARY KEY (p_partkey)
 );
 
 CREATE TABLE lineorder (
@@ -335,7 +335,7 @@ CREATE TABLE lineorder (
 
 COMMIT; 
 EOF
-# ... that was schema_creation_sql
+# ... that was the SQL for creating the schema and the key cosntraints
 
 
 read -r -d '' table_loading_sql_template << EOF
