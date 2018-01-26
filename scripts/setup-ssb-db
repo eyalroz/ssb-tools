@@ -106,7 +106,7 @@ function run_mclient {
 }
 
 function dbgen_is_valid {
-	[[ -n $($dbgen_binary -h 2>&1 | head -1 | grep "SSBM (Star Schema Benchmark) Population Generator") ]]
+	[[ -n $($dbgen_binary -h 2>&1 | head -1 | egrep "SSBM? \\(Star Schema Benchmark\\) Population Generator") ]]
 }
 
 
@@ -224,12 +224,12 @@ if [[ -z "$already_generated" ]]; then
 	fi
 	if [[ ! -f $dbgen_binary ]]; then
 		if [[ ! -f $dbgen_dir/Makefile ]]; then
-			[[ -f $dbgen_dir/makefile.suite ]] || die "Missing makefile.suit in the DBGEN directory $dbgen_dir"
-			# Sorry, we should really make an effort to determine which OS we're running under, rather than assuming
-			# it's Linux-like enough, but - I don't have to code that right now
-			sed -r 's/^CC *= ?/CC=cc/; s/^WORKLOAD *= ?/WORKLOAD=SSBM/; s/^MACHINE *= ?/MACHINE=LINUX/; s/DATABASE *= ?/DATABASE=DB2/;' $dbgen_dir/makefile.suite > $dbgen_dir/Makefile
+			[[ -f $dbgen_dir/CMakeLists.txt ]] || die "Missing CMakeLists.txt in the DBGEN directory $dbgen_dir - can't generate Makefile"
+			pushd $dbgen_dir
+			cmake .
+			popd
 		fi
-		[[ -f $dbgen_dir/Makefile ]] || die "Could not find or generate a Makefile in $dbgen_dir"
+		[[ -f $dbgen_dir/Makefile ]] || die "Could not find nor generate a Makefile in $dbgen_dir"
 		make -C $dbgen_dir || die "Failed building the dbgen utility."
 	fi
 			
