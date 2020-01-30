@@ -121,7 +121,6 @@ scale_factor=1
 dbgen_dir="$(pwd)/dbgen"
 data_generation_base_dir="$(pwd)"
 data_generation_dir="${data_generation_base_dir}/dbgen-${TODAY}"
-db_name="ssb-sf-$scale_factor"
 log_file="${0}.log"
 keep_raw_tables=
 port=50000
@@ -196,6 +195,8 @@ fi
 if [[ -z "$keep_raw_tables" ]] && [[ -n "already_generated" ]]; then
 	keep_raw_table=1	
 fi
+
+[[ -n "$db_name" ]] || db_name="ssb-sf-$scale_factor"
 
 [[ -n "$db_farm" ]] || db_farm="$DB_FARM"
 [[ -n "$db_farm" ]] || db_farm="$HOME/db_farms/monetdb"
@@ -419,10 +420,10 @@ if [[ -z "$already_generated" ]] ; then
 	escaped_path_of_generation_dir=$(echo "$PWD" | sed 's/\//\\\//g')
 	table_loading_sql=$(echo "$table_loading_sql_template" | sed -e "s/PWD/$escaped_path_of_generation_dir/")
 	[[ "$be_verbose" ]] && dbgen_verbosity_option="-v"
-	[[ "$be_verbose" ]] && echo "$dbgen_binary -v -b $dbgen_dists_file -s 1 "
+	[[ "$be_verbose" ]] && echo "$dbgen_binary -v -b $dbgen_dists_file -s $scale_factor "
 	# Unfortunately, for now, we need to generate each table separately.
-	echo >&2 $dbgen_binary -b $dbgen_dists_file -s 1
-	$dbgen_binary -b $dbgen_dists_file -s 1 $dbgen_verbosity_option || die "Failed generating SSB data using $dbgen_binary with scale factor $scale_factor, at $data_generation_dir"
+	echo >&2 $dbgen_binary -b $dbgen_dists_file -s $scale_factor
+	$dbgen_binary -b $dbgen_dists_file -s $scale_factor $dbgen_verbosity_option || die "Failed generating SSB data using $dbgen_binary with scale factor $scale_factor, at $data_generation_dir"
 	popd >&/dev/null
 else
 	[[ -d $data_generation_dir ]] || die "Pre-generated data directory $data_generation_dir is missing"
